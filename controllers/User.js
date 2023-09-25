@@ -7,8 +7,8 @@ async function getUsers(res) {
 	try {
 		await UserModel.find().then(response => {
 			const excludePassword = response.map(user => {
-				const { id, name, lastName, userName, email, role } = user
-				return { id, name, lastName, userName, email, role }
+				const { id, name, lastName, userName, email, role, description, price } = user
+				return { id, name, lastName, userName, email, role, description, price }
 			})
 			res.status(200).json(excludePassword)
 		})

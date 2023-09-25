@@ -8,6 +8,12 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    description: {
+        type: String,
+    },
+    price: {
+        type: String,
+    },
     role: {
         type: String,
         enum: ["admin", "guest"],
