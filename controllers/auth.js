@@ -1,21 +1,85 @@
+const jwt = require("jsonwebtoken")
+
+const bcrypt = require("bcrypt")
+
+const uuid = require("uuid")
+
 const UserModel = require("../models/User")
 
-async function login(req, res) {
-    const { email, password } = req.body
+function login(req, res) {
+    const {email, password} = req.body
 
-    await UserModel.findOne({ email }).then(response => {
-        if (response ?. id) {
-            res.status(200).json({
-                data: response,
-            })
-        }  else {
-            res.status(200).json({
-                message: `document not found`,
+    UserModel.findOne({email}).then(async response => {
+        if(response?.id) {
+            const isMatch = await bcrypt.compare(
+                password,
+                response.password
+            )
+            if (isMatch) {
+                jwt.sign(
+                    {
+                        user:{
+                            role:response.role,
+                            id:response.id,
+                        },
+                    },
+                    procces.env.SECRET,
+                    {
+                        expiresIn:"Sh"
+                    },
+                    (err,token)=>{
+                        if(err)res.sendStatus(403)
+                        else{
+                    res.status(200).json({
+                        token,
+                        user:{
+                            email:response.email,
+                            id:response.id,
+                            name:response.name,
+                            role:response.role
+                        },
+                    })
+                    }
+            }
+        )
+}   else{
+    res.status(401).json({
+        message: "Invalid credentials",
+    })
+}
+        } else {
+            res.status(401).json({
+                message: "Invalid credentials"
             })
         }
     })
 }
 
+async function register (req, res) {
+    try {
+        const {username, password, email, address} = req.bdoy
+
+        const salt = bcrypt.genSaltSync(10)
+        const hash = await bcrypt.hash(password, salt)
+
+        const data = new UserModel({
+            id: uuid.v4(),
+            username,
+            password: hash,
+            email,
+            address,
+            role: "client",
+        })
+        data.save()
+        res.status(201).json({create : true})
+    }   catch(error){
+        res.status(400).json({
+            message: error.message
+        })
+    }
+}
+
 module.exports = {
     login,
+    register
 }
