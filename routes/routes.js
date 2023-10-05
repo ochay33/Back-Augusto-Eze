@@ -9,6 +9,8 @@ const {
 	readUsers,
 } = require("../controllers/User")
 
+const { login } = require("../controllers/auth")
+
 const {
 	validateCreate,
 	validateDelete,
@@ -31,6 +33,8 @@ router.get(
 )
 router.get("/read-users", readUsers)
 router.get("/read-user/:id", readUser)
+
+router.post("/login", login)
 
 module.exports = router
 
