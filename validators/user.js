@@ -10,11 +10,11 @@ const validateCreate = [
 		.exists()
 		.notEmpty()
 		.withMessage("Escribí algo otario"),
-	check("email")
-		.exists()
-		.notEmpty()
-		.isEmail()
-		.withMessage("Debe ser un email"),
+	// check("email")
+	// 	.exists()
+	// 	.notEmpty()
+	// 	.isEmail()
+	// 	.withMessage("Debe ser un email"),
 	check("role")
 		.exists()
 		.notEmpty()

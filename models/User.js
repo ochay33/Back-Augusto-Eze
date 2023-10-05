@@ -8,33 +8,27 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    description: {
-        type: String,
-    },
-    price: {
-        type: String,
-    },
     role: {
         type: String,
         enum: ["admin", "guest"],
         required: true,
     },
-    lastName: {
-        type: String,
-        required: true,
-    },
-    userName: {
-        type: String,
-        required: true,
-    },
-    password: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-    },
+     lastName: {
+         type: String,
+         required: true,
+     },
+     userName: {
+         type: String,
+         required: true,
+     },
+     password: {
+         type: String,
+         required: true,
+     },
+     email: {
+         type: String,
+         required: true,
+     },
 })
 
 // Como primer parametro, va el nombre de la coleccion
