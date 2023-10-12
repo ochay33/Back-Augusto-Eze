@@ -25,7 +25,7 @@ function login(req, res) {
                     },
                     procces.env.SECRET,
                     {
-                        expiresIn:"Sh"
+                        expiresIn:"5h"
                     },
                     (err,token)=>{
                         if(err)res.sendStatus(403)
