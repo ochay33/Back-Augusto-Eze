@@ -117,7 +117,7 @@ async function readUser(req, res) {
 			if (response) {
 				res.status(200).json(response)
 			} else {
-				res.status(400).send("Cualca wey")
+				res.status(400).send("Otro")
 			}
 		})
 	} catch (error) {
