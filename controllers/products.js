@@ -25,7 +25,7 @@ async function readProducts(req, res) {
 }
 
 async function createProducts(req, res) {
-	const { title, img, detail, precio, categoria } = req.body
+	const { name, imagen, price, description } = req.body
 
 	const data = new ProductsModel({
 		id: uuid.v4(),
