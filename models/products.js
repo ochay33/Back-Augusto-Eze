@@ -9,7 +9,7 @@ const productsSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	descripcion: {
+	description: {
 		type: Number,
 		required: true,
 	},
@@ -24,7 +24,7 @@ const productsSchema = new Schema({
 },{versionKey:false} ) 
 
 
-productsSchema.index({ name: "text", descripcion: "text", price: "text", imagen: "text",})
+productsSchema.index({ name: "text", description: "text", price: "text", imagen: "text",})
 
 
 module.exports = model("products", productsSchema)
