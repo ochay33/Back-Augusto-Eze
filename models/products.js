@@ -5,30 +5,26 @@ const { model, Schema } = mongoose
 
 const productsSchema = new Schema({
 	id: String,
-	title: {
+	name: {
 		type: String,
 		required: true,
 	},
-	precio: {
+	descripcion: {
 		type: Number,
 		required: true,
 	},
-	categoria: {
+	imagen: {
 		type: String,
 		required: true,
 	},
-	detail: {
-		type: String,
-		required: true,
-	},
-	img: {
-		type: String,
+    price: {
+		type: Number,
 		required: true,
 	}
 },{versionKey:false} ) 
 
 
-productsSchema.index({ title: "text", detail: "text", precio: "text", categoria: "text",})
+productsSchema.index({ name: "text", descripcion: "text", price: "text", imagen: "text",})
 
 
 module.exports = model("products", productsSchema)
