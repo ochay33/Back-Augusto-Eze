@@ -1,53 +1,41 @@
-const {
-	param,
-	check,
-	query,
-	validationResult,
-} = require("express-validator")
+const { param ,
+    check,
+    query,
+    validationResult,} = require ("express-validator")
 
 const validateCreate = [
-	check("name")
-		.exists()
-		.notEmpty()
-		.withMessage("Escribí algo otario"),
-	check("email")
-		.exists()
-		.notEmpty()
-		.isEmail()
-		.withMessage("Debe ser un email"),
-	check("role")
-		.exists()
-		.notEmpty()
-		// falta funcion q solo permita 2 opciones
-		.withMessage("Es necesario que sea guest o admin"),
-	(req, res, next) => {
-		try {
-			validationResult(req).throw()
-			return next()
-		} catch (err) {
-			res.status(403).send(
-				err.errors.map(e => {
-					return {
-						field: e.path,
-						msg: e.msg,
-					}
-				})
-			)
-		}
-	},
+    check("email")
+        .exists()
+        .isEmail()
+        .withMessage("El campo name debe ser un email"),
+    check("username")
+        .exists()
+        .isString(),
+    check("address")   
+        .exists()
+        .isString(),
+    (req,res,next) => {
+        try{
+            validationResult(req).throw()
+            return next()
+        } catch (err) {
+            res.status(403)
+            res.send({ errors: err.array() })
+        }
+    }
 ]
 
 const validateDelete = [
-	param("id").exists().isString(),
-	(req, res, next) => {
-		try {
-			validationResult(req).throw()
-			return next()
-		} catch (err) {
-			res.status(403)
-			res.send({ errors: err.array() })
-		}
-	},
+    param("id").exists().isString(),
+    (req,res,next) => {
+        try{
+            validationResult(req).throw()
+            return next()
+        }catch(error){
+            res.status(403)
+            res.send({errors : err.array()})
+        }
+    }
 ]
 
 const validateGetWithQueryStrings = [
@@ -64,63 +52,9 @@ const validateGetWithQueryStrings = [
 	},
 ]
 
+
 module.exports = {
-	validateCreate,
-	validateDelete,
-	validateGetWithQueryStrings,
+    validateCreate,
+    validateDelete,
+    validateGetWithQueryStrings,
 }
-
-
-
-
-// const { param, 
-//     check, 
-//     query, 
-//     validationResult } = require("express-validator")  // con check creo la validacion 
-
-// const validateCreate = [
-//     check("name")
-//     .exists()
-//     .notEmpty()
-//     .withMessage("tenes que escribir algo"),
-//     check("email")
-//     .exists()
-//     .notEmpty()
-//     .isEmail()
-//     .withMessage("Debe ser un email"),
-//     check("role")
-//     .exists()
-//     .notEmpty()
-//     .withMessage("Tenes que ser admin o guest"),
-//     (req, res, next) => {
-//         try {
-//             validationResult(req).throw()
-//             return next()
-//         } catch (err) {
-//             res.status(403).send(
-//                 err.errors.map(e => {
-//                     return {
-//                         field: e.path,
-//                         msg: e.msg,
-//                     }
-//                 }) 
-//             )
-//         }
-//     },
-// ]
-
-// const validateGetWithQueryStrings = [
-//     query("size").exists().isString(),
-//     query("page").exists().isString(),
-//     (req, res, next) => {
-//         try {
-//             validationResult(req).throw()
-//             return next()
-//         }   catch (err) {
-//             res.status(403)
-//             res.send({ errrors: err.array()})
-//         }
-//     }
-// ]
-
-// module.exports = { validateCreate, validateDelete, validateGetWithQueryStrings, }
