@@ -29,11 +29,10 @@ async function createProducts(req, res) {
 
 	const data = new ProductsModel({
 		id: uuid.v4(),
-		title,
-		img,
-		detail,
-		precio,
-		categoria,
+		name,
+		imagen,
+		price,
+		description,
 	})
 
 	data.save()
