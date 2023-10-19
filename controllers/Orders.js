@@ -3,7 +3,7 @@ const uuid = require("uuid")
 
 async function createorder  (req,res) {
     try{
-        const {total,datos,items,cantidad, state} =req.body 
+        const {total,datos,items,cantidad} =req.body 
 
         const data = new OrdersModel({
 			      id : uuid.v4(),
@@ -66,7 +66,7 @@ async function updateOrders(req, res) {
     try {
       const updatedOrder = await OrdersModel.findByIdAndUpdate(
         orderId,
-        { estado: "Enviado" },
+        { state: "sent" },
         { new: true }
       );
   
@@ -81,7 +81,7 @@ async function updateOrders(req, res) {
   }
   const deleteAllOrders = async (req, res) => {
 	try {
-		await OrdersModel.deleteMany({ estado: "Enviado" });
+		await OrdersModel.deleteMany({ state: "sent" });
 
 		res.status(200).json({ message: "Todas las órdenes enviadas han sido eliminadas" });
 	} catch (error) {
